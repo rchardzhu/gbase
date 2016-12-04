@@ -19,10 +19,15 @@ COPTS = [
 cc_library(name = "gbase",
      srcs = [
         "base/string_piece.cc",
+        "base/mutex.cc",
+        "base/singleton.cc",
     ],
     hdrs = [
         "base/port.h",
         "base/string_piece.h",
+        "base/thread_annotations.h",
+        "base/mutex.h",
+        "base/singleton.h",
     ],
     includes = ["./"],
     copts = COPTS,
