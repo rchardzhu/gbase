@@ -16,8 +16,9 @@ COPTS = [
 ]
 
 
-cc_library(name = "gbase",
-     srcs = [
+cc_library(
+    name = "gbase",
+    srcs = [
         "base/string_piece.cc",
         "base/mutex.cc",
         "base/singleton.cc",
@@ -39,4 +40,17 @@ cc_library(name = "gbase",
     ],
     includes = ["./"],
     copts = COPTS,
+)
+
+cc_test(
+    name = "gbase_test",
+    srcs = [
+        "base/string_piece_test.cc",
+    ],
+    includes = ["./"],
+    copts = COPTS,
+    deps = [
+        ":gbase",
+        "//external:gtest",
+    ],
 )
