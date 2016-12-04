@@ -314,7 +314,7 @@ void LogStreamImpl::Reset() {
     // TODO(team): Considers to use SetConsoleTextAttribute on Windows.
     use_cerr_ = FLAGS_logtostderr;
     support_color_ = false;
-#else  // OS_NACL, OS_ANDROID, OS_WIN
+#else  // !OS_NACL, OS_ANDROID, OS_WIN
     use_cerr_ = FLAGS_logtostderr;
     support_color_ = use_cerr_ && FLAGS_colored_log
         && ::isatty(::fileno(stderr));
