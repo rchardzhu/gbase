@@ -27,6 +27,7 @@ cc_library(
         "base/clock_mock.cc",
         "base/logging.cc",
         "base/thread.cc",
+        "base/hash.cc",
     ],
     hdrs = [
         "base/port.h",
@@ -40,6 +41,7 @@ cc_library(
         "base/logging.h",
         "base/thread.h",
         "base/util.h",
+        "base/hash.h",
     ],
     includes = ["./"],
     copts = COPTS,
@@ -56,6 +58,7 @@ cc_test(
         "base/singleton_test.cc",
         "base/mutex_test.cc",
         "base/logging_test.cc",
+        "base/hash_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
