@@ -27,65 +27,44 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef GBASE_BASE_SINGLETON_H_
-#define GBASE_BASE_SINGLETON_H_
+#ifndef GBASE_BASE_THREAD_H_
+#define GBASE_BASE_THREAD_H_
 
-#include "base/mutex.h"
+#include <memory>
+#include <string>
+
+#include "base/port.h"
 
 namespace gbase {
 
-class SingletonFinalizer {
+struct ThreadInternalState;
+
+class Thread {
  public:
-  typedef void (*FinalizerFunc)();
+  Thread();
+  virtual ~Thread();
 
-  // Do not call this method directly.
-  // use Singleton<Typename> instead.
-  static void AddFinalizer(FinalizerFunc func);
+  virtual void Run() = 0;
 
-  // Call Finalize() if you want to finalize
-  // all instances created by Sigleton.
-  //
-  // Gbase UI for Windows (DLL) can call
-  // SigletonFinalizer::Finalize()
-  // at an appropriate timing.
-  static void Finalize();
-};
-
-// Thread-safe Singleton class.
-// Usage:
-//
-// class Foo {}
-//
-// Foo *instance = gbase::Singleton<Foo>::get();
-template <typename T>
-class Singleton {
- public:
-  static T *get() {
-    CallOnce(&once_, &Singleton<T>::Init);
-    return instance_;
-  }
+  void Start(const string &thread_name);
+  bool IsRunning() const;
+  void SetJoinable(bool joinable);
+  void Join();
+  // This method is not encouraged especiialy in Windows.
+  void Terminate();
 
  private:
-  static void Init() {
-    SingletonFinalizer::AddFinalizer(&Singleton<T>::Delete);
-    instance_ = new T;
-  }
+  void Detach();
 
-  static void Delete() {
-    delete instance_;
-    instance_ = NULL;
-    ResetOnce(&once_);
-  }
+#ifndef OS_WIN
+  static void *WrapperForPOSIX(void *ptr);
+#endif  // OS_WIN
 
-  static once_t once_;
-  static T *instance_;
+  std::unique_ptr<ThreadInternalState> state_;
+
+  DISALLOW_COPY_AND_ASSIGN(Thread);
 };
 
-template <typename T>
-once_t Singleton<T>::once_ = GBASE_ONCE_INIT;
-
-template <typename T>
-T* Singleton<T>::instance_ = NULL;
 }  // namespace gbase
 
-#endif  // GBASE_BASE_SINGLETON_H_
+#endif  // GBASE_BASE_THREAD_H_

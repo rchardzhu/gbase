@@ -42,7 +42,6 @@
 
 namespace gbase {
 
-
 class StringPiece {
  public:
   using size_type = size_t;
