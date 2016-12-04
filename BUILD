@@ -52,6 +52,7 @@ cc_test(
         "base/clock_mock_test.cc",
         "base/clock_test.cc",
         "base/thread_test.cc",
+        "base/flags_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
