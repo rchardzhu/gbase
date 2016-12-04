@@ -24,6 +24,7 @@ cc_library(
         "base/singleton.cc",
         "base/flags.cc",
         "base/clock.cc",
+        "base/clock_mock.cc",
         "base/logging.cc",
         "base/thread.cc",
     ],
@@ -35,6 +36,7 @@ cc_library(
         "base/singleton.h",
         "base/flags.h",
         "base/clock.h",
+        "base/clock_mock.h",
         "base/logging.h",
         "base/thread.h",
     ],
@@ -46,6 +48,7 @@ cc_test(
     name = "gbase_test",
     srcs = [
         "base/string_piece_test.cc",
+        "base/clock_mock_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
