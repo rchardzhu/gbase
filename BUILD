@@ -28,6 +28,7 @@ cc_library(
         "base/logging.cc",
         "base/thread.cc",
         "base/hash.cc",
+        "base/util.cc",
     ],
     hdrs = [
         "base/port.h",
@@ -42,6 +43,7 @@ cc_library(
         "base/thread.h",
         "base/util.h",
         "base/hash.h",
+        "base/trie.h",
     ],
     includes = ["./"],
     copts = COPTS,
