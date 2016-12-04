@@ -49,6 +49,7 @@ cc_test(
     srcs = [
         "base/string_piece_test.cc",
         "base/clock_mock_test.cc",
+        "base/clock_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
