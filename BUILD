@@ -32,6 +32,7 @@ cc_library(
         "base/cpu_stats.cc",
         "base/scoped_handle_win.cc",
         "base/mmap.cc",
+        "base/number_util.cc",
     ],
     hdrs = [
         "base/port.h",
@@ -51,6 +52,7 @@ cc_library(
         "base/cpu_stats.h",
         "base/scoped_handle_win.h",
         "base/mmap.h",
+        "base/number_util.h",
     ],
     includes = ["./"],
     copts = COPTS,
@@ -71,6 +73,7 @@ cc_test(
         "base/bitarray_test.cc",
         "base/trie_test.cc",
         "base/cpu_stats_test.cc",
+        "base/number_util_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
