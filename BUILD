@@ -35,6 +35,7 @@ cc_library(
         "base/number_util.cc",
         "base/file_stream.cc",
         "base/file_util.cc",
+        "base/stopwatch.cc",
     ],
     hdrs = [
         "base/port.h",
@@ -59,6 +60,7 @@ cc_library(
         "base/file_util.h",
         "base/stl_util.h",
         "base/iterator_adapter.h",
+        "base/stopwatch.h",
     ],
     includes = ["./"],
     copts = COPTS,
@@ -83,6 +85,7 @@ cc_test(
         "base/file_util_test.cc",
         "base/stl_util_test.cc",
         "base/iterator_adapter_test.cc",
+        "base/stopwatch_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
