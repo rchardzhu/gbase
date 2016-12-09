@@ -37,6 +37,7 @@ cc_library(
         "base/file_util.cc",
         "base/stopwatch.cc",
         "base/unnamed_event.cc",
+        "base/process_mutex.cc",
     ],
     hdrs = [
         "base/port.h",
@@ -63,6 +64,7 @@ cc_library(
         "base/iterator_adapter.h",
         "base/stopwatch.h",
         "base/unnamed_event.h",
+        "base/process_mutex.h",
     ],
     includes = ["./"],
     copts = COPTS,
@@ -89,6 +91,7 @@ cc_test(
         "base/iterator_adapter_test.cc",
         "base/stopwatch_test.cc",
         "base/unnamed_event_test.cc",
+        "base/process_mutex_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
