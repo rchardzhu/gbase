@@ -114,6 +114,11 @@ class StringPiece {
     return string(!empty() ? data() : "", size());
   }
 
+  string ToString() const {
+    // string doesn't like to take a nullptr pointer even with a 0 size.
+    return as_string();
+  }
+
   void CopyToString(string *target) const;
   void AppendToString(string *target) const;
 
