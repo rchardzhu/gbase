@@ -39,6 +39,7 @@ cc_library(
         "base/unnamed_event.cc",
         "base/process_mutex.cc",
         "base/coding.cc",
+        "base/bloom_filter.cc",
     ],
     hdrs = [
         "base/atomic_pointer.h",
@@ -68,6 +69,7 @@ cc_library(
         "base/unnamed_event.h",
         "base/process_mutex.h",
         "base/coding.h",
+        "base/bloom_filter.h",
     ],
     includes = ["./"],
     copts = COPTS,
@@ -96,6 +98,7 @@ cc_test(
         "base/unnamed_event_test.cc",
         "base/process_mutex_test.cc",
         "base/coding_test.cc",
+        "base/bloom_filter_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,

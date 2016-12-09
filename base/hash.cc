@@ -30,6 +30,7 @@
 #include "base/hash.h"
 
 #include "base/port.h"
+#include "coding.h"
 
 namespace gbase {
 namespace {
@@ -50,6 +51,41 @@ const uint32 kFingerPrintSeed1 = 0x7a63;
   a -= b; a -= c; a ^= (c >> 3);  \
   b -= c; b -= a; b ^= (a << 10); \
   c -= a; c -= b; c ^= (b >> 15); \
+}
+
+uint32 Hash::MurMurlLikeHash(StringPiece str, uint32_t seed) {
+  // Similar to murmur hash
+  const char* data = str.data();
+  int n = str.size();
+  const uint32_t m = 0xc6a4a793;
+  const uint32_t r = 24;
+  const char* limit = data + n;
+  uint32_t h = seed ^ (n * m);
+
+  // Pick up four bytes at a time
+  while (data + 4 <= limit) {
+    uint32_t w = DecodeFixed32(data);
+    data += 4;
+    h += w;
+    h *= m;
+    h ^= (h >> 16);
+  }
+
+  // Pick up remaining bytes
+  switch (limit - data) {
+    case 3:
+      h += static_cast<unsigned char>(data[2]) << 16;
+      FALLTHROUGH_INTENDED;
+    case 2:
+      h += static_cast<unsigned char>(data[1]) << 8;
+      FALLTHROUGH_INTENDED;
+    case 1:
+      h += static_cast<unsigned char>(data[0]);
+      h *= m;
+      h ^= (h >> r);
+      break;
+  }
+  return h;
 }
 
 uint32 Hash::Fingerprint32(StringPiece str) {
