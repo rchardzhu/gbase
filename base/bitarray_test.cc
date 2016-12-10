@@ -31,7 +31,7 @@
 
 #include <vector>
 
-#include "base/util.h"
+#include "base/random.h"
 #include "gtest/gtest.h"
 
 namespace gbase {
@@ -75,7 +75,7 @@ TEST(BitArray, BitArrayTest) {
     EXPECT_EQ(size, array.size());
     std::vector<int> target(size);
     for (size_t j = 0; j < size; ++j) {
-      const bool v = (Util::Random(2) == 0);
+      const bool v = (Random::RandRandom(2) == 0);
       if (v) {
         target[j] = 1;
         array.set(j);

@@ -47,6 +47,7 @@ cc_library(
         "base/scheduler_stub.cc",
         "base/serialized_string_array.cc",
         "base/arena.cc",
+        "base/random.cc",
     ],
     hdrs = [
         "base/atomic_pointer.h",

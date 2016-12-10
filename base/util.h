@@ -282,23 +282,6 @@ class Util {
   // given line.
   static bool ChopReturns(string *line);
 
-  // Generate a random sequence. It uses secure method if possible, or Random()
-  // as a fallback method.
-  static void GetRandomSequence(char *buf, size_t buf_size);
-  static void GetRandomAsciiSequence(char *buf, size_t buf_size);
-
-  // Return random variable whose range is [0..size-1].
-  // This function uses rand() internally, so don't use it for
-  // security-sensitive purpose.
-  // Caveats: The returned value does not have good granularity especially
-  // when |size| is larger than |RAND_MAX|.
-  // TODO(yukawa): Improve the granularity.
-  // TODO(yukawa): Clarify the semantics when |size| is 0 or smaller.
-  static int Random(int size);
-
-  // Set the seed of Util::Random().
-  static void SetRandomSeed(uint32 seed);
-
   // Suspends the execution of the current thread until
   // the time-out interval elapses.
   static void Sleep(uint32 msec);

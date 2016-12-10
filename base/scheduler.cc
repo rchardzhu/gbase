@@ -41,7 +41,7 @@
 #include "base/singleton.h"
 #include "base/thread.h"
 #include "base/unnamed_event.h"
-#include "base/util.h"
+#include "base/random.h"
 
 namespace gbase {
 namespace {
@@ -196,7 +196,7 @@ class Job {
 class SchedulerImpl : public Scheduler::SchedulerInterface {
  public:
   SchedulerImpl() {
-    Util::SetRandomSeed(static_cast<uint32>(Clock::GetTime()));
+    Random::SetRandRandomSeed(static_cast<uint32>(Clock::GetTime()));
   }
 
   virtual ~SchedulerImpl() {
@@ -294,7 +294,7 @@ class SchedulerImpl : public Scheduler::SchedulerInterface {
   uint32 CalcDelay(const Scheduler::JobSetting &job_setting) {
     uint32 delay = job_setting.delay_start();
     if (job_setting.random_delay() != 0) {
-      delay += Util::Random(job_setting.random_delay());
+      delay += Random::RandRandom(job_setting.random_delay());
     }
     return delay;
   }

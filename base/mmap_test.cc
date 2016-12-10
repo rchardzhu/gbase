@@ -35,7 +35,7 @@
 #include "base/file_stream.h"
 #include "base/file_util.h"
 #include "base/flags.h"
-#include "base/util.h"
+#include "base/random.h"
 #include "gtest/gtest.h"
 
 namespace gbase {
@@ -59,7 +59,7 @@ TEST(MmapTest, MmapTest) {
       ofs.write(buf.get(), kFileNameSize[i]);
     }
 
-    Util::GetRandomSequence(buf.get(), kFileNameSize[i]);
+    Random::GetRandomSequence(buf.get(), kFileNameSize[i]);
 
     // Write Test
     {

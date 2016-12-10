@@ -1647,17 +1647,6 @@ TEST(UtilTest, FormType) {
   EXPECT_EQ(Util::HALF_WIDTH, Util::GetFormType("@!#"));
 }
 
-TEST(UtilTest, RandomSeedTest) {
-  Util::SetRandomSeed(0);
-  const int first_try = Util::Random(INT_MAX);
-  const int second_try = Util::Random(INT_MAX);
-  EXPECT_NE(first_try, second_try);
-
-  // Reset the seed.
-  Util::SetRandomSeed(0);
-  EXPECT_EQ(first_try, Util::Random(INT_MAX));
-}
-
 TEST(UtilTest, SplitFirstChar32) {
   StringPiece rest;
   char32 c = 0;
