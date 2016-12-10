@@ -42,6 +42,7 @@ cc_library(
         "base/bloom_filter.cc",
         "base/multifile.cc",
         "base/version.cc",
+        "base/scheduler.cc",
     ],
     hdrs = [
         "base/atomic_pointer.h",
@@ -75,6 +76,7 @@ cc_library(
         "base/multifile.h",
         "base/version_def.h",
         "base/version.h",
+        "base/scheduler.h",
     ],
     includes = ["./"],
     copts = COPTS,
@@ -107,6 +109,7 @@ cc_test(
         "base/bloom_filter_test.cc",
         "base/multifile_test.cc",
         "base/version_test.cc",
+        "base/scheduler_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
