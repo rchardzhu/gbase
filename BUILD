@@ -43,6 +43,7 @@ cc_library(
         "base/multifile.cc",
         "base/version.cc",
         "base/scheduler.cc",
+        "base/scheduler_stub.cc",
     ],
     hdrs = [
         "base/atomic_pointer.h",
@@ -77,6 +78,7 @@ cc_library(
         "base/version_def.h",
         "base/version.h",
         "base/scheduler.h",
+        "base/scheduler_stub.h",
     ],
     includes = ["./"],
     copts = COPTS,
@@ -110,6 +112,7 @@ cc_test(
         "base/multifile_test.cc",
         "base/version_test.cc",
         "base/scheduler_test.cc",
+        "base/scheduler_stub_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
