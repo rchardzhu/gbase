@@ -454,6 +454,10 @@ class Util {
   // length of s is not eight or s is in an invalid format.
   static bool DeserializeUint64(StringPiece s, uint64 *x);
 
+  static string GetLogFilePathFromProgramName(const string &program_name);
+
+  static void InitGbase(const char *arg0, int *argc, char ***argv, bool remove_flags);
+
  private:
   DISALLOW_IMPLICIT_CONSTRUCTORS(Util);
 };

@@ -64,6 +64,7 @@
 #include "base/logging.h"
 #include "base/port.h"
 #include "base/string_piece.h"
+#include "file_util.h"
 
 namespace {
 
@@ -1582,6 +1583,44 @@ bool Util::DeserializeUint64(StringPiece s, uint64 *x) {
        static_cast<uint64>(s[6]) << 8 |
        static_cast<uint64>(s[7]);
   return true;
+}
+
+DEFINE_string(program_invocation_name, "", "Program name copied from argv[0].");
+
+// Even if log_dir is modified in the middle of the process, the
+// logging directory will not be changed because the logging stream is
+// initialized in the very early initialization stage.
+DEFINE_string(log_dir,
+              "",
+              "If specified, logfiles are written into this directory "
+              "instead of the default logging directory.");
+string Util::GetLogFilePathFromProgramName(const string &program_name) {
+  const string basename = FileUtil::Basename(program_name) + ".log";
+  if (FLAGS_log_dir.empty()) {
+#ifdef GBASE_BUILDTOOL_BUILD
+    return basename;
+#else  // GBASE_BUILDTOOL_BUILD
+    return FileUtil::JoinPath("./log", basename);
+#endif  // GBASE_BUILDTOOL_BUILD
+  }
+  return FileUtil::JoinPath(FLAGS_log_dir, basename);
+}
+
+void Util::InitGbase(const char *arg0, int *argc, char ***argv, bool remove_flags) {
+#ifdef OS_WIN
+  // InitGbase() is supposed to be used for code generator or
+  // other programs which are not included in the production code.
+  // In these code, we don't want to show any error messages when
+  // exceptions are raised. This is important to keep
+  // our continuous build stable.
+  ::SetUnhandledExceptionFilter(ExitProcessExceptionFilter);
+#endif  // OS_WIN
+  FLAGS_program_invocation_name = *argv[0];
+  gbase_flags::ParseCommandLineFlags(argc, argv, remove_flags);
+
+  const string program_name = *argc > 0 ? (*argv)[0] : "UNKNOWN";
+  Logging::InitLogStream(GetLogFilePathFromProgramName(program_name));
+
 }
 
 }  // namespace gbase
