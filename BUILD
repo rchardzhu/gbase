@@ -121,6 +121,7 @@ cc_test(
         "base/scheduler_test.cc",
         "base/scheduler_stub_test.cc",
         "base/serialized_string_array_test.cc",
+        "base/arena_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
