@@ -134,3 +134,11 @@ cc_binary(
     linkopts = LINK_OPTS,
     deps = [":gbase",],
 )
+
+cc_binary(
+    name = "cpu_stats_main",
+    srcs = ["base/cpu_stats_main.cc"],
+    copts = COPTS,
+    linkopts = LINK_OPTS,
+    deps = [":gbase",],
+)
