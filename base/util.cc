@@ -1584,21 +1584,4 @@ bool Util::DeserializeUint64(StringPiece s, uint64 *x) {
   return true;
 }
 
-bool Util::IsLittleEndian() {
-#ifdef OS_WIN
-  return true;
-#else  // OS_WIN
-  union {
-    unsigned char c[4];
-    unsigned int i;
-  } u;
-  static_assert(sizeof(u.c) == sizeof(u.i),
-                "Expecting (unsigned) int is 32-bit integer.");
-  static_assert(sizeof(u) == sizeof(u.i),
-                "Checking alignment.");
-  u.i = 0x12345678U;
-  return u.c[0] == 0x78U;
-#endif  // OS_WIN
-}
-
 }  // namespace gbase

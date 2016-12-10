@@ -102,6 +102,7 @@ cc_test(
         "base/stopwatch_test.cc",
         "base/unnamed_event_test.cc",
         "base/process_mutex_test.cc",
+        "base/util_test.cc",
         "base/coding_test.cc",
         "base/bloom_filter_test.cc",
         "base/multifile_test.cc",
