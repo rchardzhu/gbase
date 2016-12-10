@@ -87,7 +87,7 @@ class Clock {
 
 #ifdef OS_NACL
   // Sets the time difference between local time and UTC time in seconds.
-  // We use this function in NaCl Mozc because we can't know the local timezone
+  // We use this function in NaCl Gbase because we can't know the local timezone
   // in NaCl environment.
   static void SetTimezoneOffset(int32 timezone_offset_sec);
 #endif  // OS_NACL

@@ -193,7 +193,7 @@ namespace {
 // Basically, fcntl provides "per-process" file-locking.
 // When a process has multiple fds on the same file,
 // file lock is released if one fd is closed. This is not
-// an expected behavior for Mozc.
+// an expected behavior for Gbase.
 //
 // Linux man says
 // "As well as being removed by an explicit F_UNLCK, record locks are

@@ -59,7 +59,7 @@ inline int InterlockedCompareExchange(volatile int *target,
                                       int new_value,
                                       int old_value) {
   // TODO(yusukes): For now, we use the architecture-neutral implementation,
-  // but I believe it's definitely better to port Chromium's singleton to Mozc.
+  // but I believe it's definitely better to port Chromium's singleton to Gbase.
   // The implementation should be much faster and supports ARM Linux.
   // http://src.chromium.org/viewvc/chrome/trunk/src/base/singleton.h
 
