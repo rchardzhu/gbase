@@ -34,7 +34,7 @@
 #include "base/util.h"
 #include "base/stopwatch.h"
 
-DEFINE_int32(sleep_time, 1000, "sleep time");
+DEFINE_int32(sleep_time, 1000, "sleep time in ms");
 
 int main(int argc, char **argv) {
   gbase::Util::InitGbase(argv[0], &argc, &argv, false);

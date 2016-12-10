@@ -103,6 +103,7 @@ cc_test(
         "base/trie_test.cc",
         "base/cpu_stats_test.cc",
         "base/number_util_test.cc",
+        "base/mmap_test.cc",
         "base/file_util_test.cc",
         "base/stl_util_test.cc",
         "base/iterator_adapter_test.cc",
