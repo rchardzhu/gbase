@@ -40,6 +40,7 @@ cc_library(
         "base/process_mutex.cc",
         "base/coding.cc",
         "base/bloom_filter.cc",
+        "base/multifile.cc",
     ],
     hdrs = [
         "base/atomic_pointer.h",
@@ -70,6 +71,7 @@ cc_library(
         "base/process_mutex.h",
         "base/coding.h",
         "base/bloom_filter.h",
+        "base/multifile.h",
     ],
     includes = ["./"],
     copts = COPTS,
@@ -99,6 +101,7 @@ cc_test(
         "base/process_mutex_test.cc",
         "base/coding_test.cc",
         "base/bloom_filter_test.cc",
+        "base/multifile_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
