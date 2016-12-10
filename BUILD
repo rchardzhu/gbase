@@ -44,6 +44,7 @@ cc_library(
         "base/version.cc",
         "base/scheduler.cc",
         "base/scheduler_stub.cc",
+        "base/serialized_string_array.cc",
     ],
     hdrs = [
         "base/atomic_pointer.h",
@@ -79,6 +80,7 @@ cc_library(
         "base/version.h",
         "base/scheduler.h",
         "base/scheduler_stub.h",
+        "base/serialized_string_array.h",
     ],
     includes = ["./"],
     copts = COPTS,
@@ -113,6 +115,7 @@ cc_test(
         "base/version_test.cc",
         "base/scheduler_test.cc",
         "base/scheduler_stub_test.cc",
+        "base/serialized_string_array_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
