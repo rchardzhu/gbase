@@ -303,36 +303,6 @@ class Util {
   // the time-out interval elapses.
   static void Sleep(uint32 msec);
 
-  static void HiraganaToKatakana(StringPiece input, string *output);
-  static void HiraganaToHalfwidthKatakana(StringPiece input, string *output);
-  static void HiraganaToRomanji(StringPiece input, string *output);
-  static void HalfWidthAsciiToFullWidthAscii(StringPiece input, string *output);
-  static void FullWidthAsciiToHalfWidthAscii(StringPiece input, string *output);
-  static void HiraganaToFullwidthRomanji(StringPiece input, string *output);
-  static void RomanjiToHiragana(StringPiece input, string *output);
-  static void KatakanaToHiragana(StringPiece input, string *output);
-  static void HalfWidthKatakanaToFullWidthKatakana(StringPiece input,
-                                                   string *output);
-  static void FullWidthKatakanaToHalfWidthKatakana(StringPiece input,
-                                                   string *output);
-  static void FullWidthToHalfWidth(StringPiece input, string *output);
-  static void HalfWidthToFullWidth(StringPiece input, string *output);
-
-  // Returns true if all chars in input are both defined
-  // in full width and half-width-katakana area
-  static bool IsFullWidthSymbolInHalfWidthKatakana(const string &input);
-
-  // Returns true if all chars are defiend in half-width-katakana area.
-  static bool IsHalfWidthKatakanaSymbol(const string &input);
-
-  // Returns true if one or more Kana-symbol characters are in the input.
-  static bool IsKanaSymbolContained(const string &input);
-
-  // Returns true if |input| looks like a pure English word.
-  static bool IsEnglishTransliteration(const string &input);
-
-  static void NormalizeVoicedSoundMark(StringPiece input, string *output);
-
   // Returns true if key is an open bracket.  If key is an open bracket,
   // corresponding close bracket is assigned.
   static bool IsOpenBracket(StringPiece key, string *close_bracket);
@@ -446,13 +416,6 @@ class Util {
   // if the given string contains multiple charasets, return
   // the maximum character set.
   static CharacterSet GetCharacterSet(StringPiece str);
-
-  // Serializes uint64 into a string of eight byte.
-  static string SerializeUint64(uint64 x);
-
-  // Deserializes a string serialized by SerializeUint64.  Returns false if the
-  // length of s is not eight or s is in an invalid format.
-  static bool DeserializeUint64(StringPiece s, uint64 *x);
 
   static string GetLogFilePathFromProgramName(const string &program_name);
 

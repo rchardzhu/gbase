@@ -1131,84 +1131,6 @@ bool Util::IsCloseBracket(StringPiece key, string *open_bracket) {
   return true;
 }
 
-bool Util::IsFullWidthSymbolInHalfWidthKatakana(const string &input) {
-  for (ConstChar32Iterator iter(input); !iter.Done(); iter.Next()) {
-    switch (iter.Get()) {
-      case 0x3002:  // FULLSTOP "。"
-      case 0x300C:  // LEFT CORNER BRACKET "「"
-      case 0x300D:  // RIGHT CORNER BRACKET "」"
-      case 0x3001:  // COMMA "、"
-      case 0x30FB:  // MIDDLE DOT "・"
-      case 0x30FC:  // SOUND_MARK "ー"
-      case 0x3099:  // VOICE SOUND MARK "゙"
-      case 0x309A:  // SEMI VOICE SOUND MARK "゚"
-        break;
-      default:
-        return false;
-    }
-  }
-  return true;
-}
-
-bool Util::IsHalfWidthKatakanaSymbol(const string &input) {
-  for (ConstChar32Iterator iter(input); !iter.Done(); iter.Next()) {
-    switch (iter.Get()) {
-      case 0xFF61:  // FULLSTOP "｡"
-      case 0xFF62:  // LEFT CORNER BRACKET "｢"
-      case 0xFF63:  // RIGHT CORNER BRACKET "｣"
-      case 0xFF64:  // COMMA "､"
-      case 0xFF65:  // MIDDLE DOT "･"
-      case 0xFF70:  // SOUND_MARK "ｰ"
-      case 0xFF9E:  // VOICE SOUND MARK "ﾞ"
-      case 0xFF9F:  // SEMI VOICE SOUND MARK "ﾟ"
-        break;
-      default:
-        return false;
-    }
-  }
-  return true;
-}
-
-bool Util::IsKanaSymbolContained(const string &input) {
-  for (ConstChar32Iterator iter(input); !iter.Done(); iter.Next()) {
-    switch (iter.Get()) {
-      case 0x3002:  // FULLSTOP "。"
-      case 0x300C:  // LEFT CORNER BRACKET "「"
-      case 0x300D:  // RIGHT CORNER BRACKET "」"
-      case 0x3001:  // COMMA "、"
-      case 0x30FB:  // MIDDLE DOT "・"
-      case 0x30FC:  // SOUND_MARK "ー"
-      case 0x3099:  // VOICE SOUND MARK "゙"
-      case 0x309A:  // SEMI VOICE SOUND MARK "゚"
-      case 0xFF61:  // FULLSTOP "｡"
-      case 0xFF62:  // LEFT CORNER BRACKET "｢"
-      case 0xFF63:  // RIGHT CORNER BRACKET "｣"
-      case 0xFF64:  // COMMA "､"
-      case 0xFF65:  // MIDDLE DOT "･"
-      case 0xFF70:  // SOUND_MARK "ｰ"
-      case 0xFF9E:  // VOICE SOUND MARK "ﾞ"
-      case 0xFF9F:  // SEMI VOICE SOUND MARK "ﾟ"
-        return true;
-    }
-  }
-  return false;
-}
-
-bool Util::IsEnglishTransliteration(const string &value) {
-  for (size_t i = 0; i < value.size(); ++i) {
-    if (value[i] == 0x20 || value[i] == 0x21 ||
-        value[i] == 0x27 || value[i] == 0x2D ||
-        // " ", "!", "'", "-"
-        (value[i] >= 0x41 && value[i] <= 0x5A) ||  // A..Z
-        (value[i] >= 0x61 && value[i] <= 0x7A)) {  // a..z
-      // do nothing
-    } else {
-      return false;
-    }
-  }
-  return true;
-}
-
 // URL
 void Util::EncodeURI(const string &input, string *output) {
   const char kDigits[] = "0123456789ABCDEF";
@@ -1551,38 +1473,6 @@ Util::FormType Util::GetFormType(const string &str) {
   }
 
   return result;
-}
-
-// CAUTION: Be careful to change the implementation of serialization.  Some
-// files use this format, so compatibility can be lost.  See, e.g.,
-// data_manager/dataset_writer.cc.
-string Util::SerializeUint64(uint64 x) {
-  const char s[8] = {
-      static_cast<char>(x >> 56),
-      static_cast<char>((x >> 48) & 0xFF),
-      static_cast<char>((x >> 40) & 0xFF),
-      static_cast<char>((x >> 32) & 0xFF),
-      static_cast<char>((x >> 24) & 0xFF),
-      static_cast<char>((x >> 16) & 0xFF),
-      static_cast<char>((x >> 8) & 0xFF),
-      static_cast<char>(x & 0xFF),
-  };
-  return string(s, 8);
-}
-
-bool Util::DeserializeUint64(StringPiece s, uint64 *x) {
-  if (s.size() != 8) {
-    return false;
-  }
-  *x = static_cast<uint64>(s[0]) << 56 |
-       static_cast<uint64>(s[1]) << 48 |
-       static_cast<uint64>(s[2]) << 40 |
-       static_cast<uint64>(s[3]) << 32 |
-       static_cast<uint64>(s[4]) << 24 |
-       static_cast<uint64>(s[5]) << 16 |
-       static_cast<uint64>(s[6]) << 8 |
-       static_cast<uint64>(s[7]);
-  return true;
 }
 
 DEFINE_string(program_invocation_name, "", "Program name copied from argv[0].");
