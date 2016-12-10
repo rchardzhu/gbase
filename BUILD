@@ -84,6 +84,7 @@ cc_library(
         "base/scheduler_stub.h",
         "base/serialized_string_array.h",
         "base/arena.h",
+        "base/random.h",
     ],
     includes = ["./"],
     copts = COPTS,

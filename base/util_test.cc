@@ -1103,27 +1103,6 @@ TEST(UtilTest, BracketTest) {
   }
 }
 
-TEST(UtilTest, IsEnglishTransliteration) {
-  EXPECT_TRUE(Util::IsEnglishTransliteration("ABC"));
-  EXPECT_TRUE(Util::IsEnglishTransliteration("Google"));
-  EXPECT_TRUE(Util::IsEnglishTransliteration("Google Map"));
-  EXPECT_TRUE(Util::IsEnglishTransliteration("ABC-DEF"));
-  EXPECT_TRUE(Util::IsEnglishTransliteration("Foo-bar"));
-  EXPECT_TRUE(Util::IsEnglishTransliteration("Foo!"));
-  EXPECT_TRUE(Util::IsEnglishTransliteration("Who's"));
-  EXPECT_TRUE(Util::IsEnglishTransliteration("!"));
-  EXPECT_TRUE(Util::IsEnglishTransliteration("  "));
-  //  EXPECT_FALSE(Util::IsEnglishTransliteration("てすと"));
-  //  EXPECT_FALSE(Util::IsEnglishTransliteration("テスト"));
-  //  EXPECT_FALSE(Util::IsEnglishTransliteration("東京"));
-  EXPECT_FALSE(Util::IsEnglishTransliteration(
-      "\xE3\x81\xA6\xE3\x81\x99\xE3\x81\xA8"));
-  EXPECT_FALSE(Util::IsEnglishTransliteration(
-      "\xE3\x83\x86\xE3\x82\xB9\xE3\x83\x88"));
-  EXPECT_FALSE(Util::IsEnglishTransliteration(
-      "\xE6\x9D\xB1\xE4\xBA\xAC"));
-}
-
 TEST(UtilTest, ChopReturns) {
   string line = "line\n";
   EXPECT_TRUE(Util::ChopReturns(&line));
