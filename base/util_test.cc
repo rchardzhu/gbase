@@ -29,7 +29,6 @@
 
 #include "base/util.h"
 
-#include <climits>
 #include <cstdlib>
 #include <cstring>
 #include <map>

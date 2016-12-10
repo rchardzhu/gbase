@@ -1,7 +1,5 @@
-// Copyright (c) 2016 Richard zhu(rchardzhu@gmail.com). All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file. See the AUTHORS file for names of contributors.
-//
+// Copyright 2010-2016, Google Inc.
+// All rights reserved.
 
 #include "base/random.h"
 
