@@ -15,6 +15,7 @@ COPTS = [
     "-Wno-error=unused-function",
 ]
 
+LINK_OPTS = ["-lpthread"]
 
 cc_library(
     name = "gbase",
@@ -123,4 +124,12 @@ cc_test(
         ":gbase",
         "//external:gtest",
     ],
+)
+
+cc_binary(
+    name = "stopwatch_main",
+    srcs = ["base/stopwatch_main.cc"],
+    copts = COPTS,
+    linkopts = LINK_OPTS,
+    deps = [":gbase",],
 )
