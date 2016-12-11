@@ -135,19 +135,6 @@ cc_test(
     ],
 )
 
-cc_library(
-    name = "storage",
-    srcs = [
-
-    ],
-    hdrs= [
-        "storage/simple_lru_cache.h",
-    ],
-    copts = COPTS,
-    linkopts = LINK_OPTS,
-    deps = [":base",],
-)
-
 cc_binary(
     name = "stopwatch_main",
     srcs = ["base/stopwatch_main.cc"],
@@ -162,4 +149,25 @@ cc_binary(
     copts = COPTS,
     linkopts = LINK_OPTS,
     deps = [":base",],
+)
+
+cc_library(
+    name = "storage",
+    srcs = [
+
+    ],
+    hdrs= [
+        "storage/simple_lru_cache.h",
+    ],
+    copts = COPTS,
+    linkopts = LINK_OPTS,
+    deps = [":base",],
+)
+
+cc_binary(
+    name = "simple_lru_cache",
+    srcs = ["storage/simple_lru_cache_main.cc"],
+    copts = COPTS,
+    linkopts = LINK_OPTS,
+    deps = [":storage",],
 )
