@@ -206,3 +206,29 @@ cc_binary(
     linkopts = LINK_OPTS,
     deps = [":storage",],
 )
+
+cc_library(
+    name = "encoding",
+    srcs = [
+        "encoding/crc32c.cc",
+    ],
+    hdrs= [
+        "encoding/crc32c.h",
+    ],
+    copts = COPTS,
+    linkopts = LINK_OPTS,
+    deps = [":base",],
+)
+
+cc_test(
+    name = "encoding_test",
+    srcs = [
+        "encoding/crc32c_test.cc",
+    ],
+    includes = ["./"],
+    copts = COPTS,
+    deps = [
+        ":encoding",
+        "//external:gtest",
+    ],
+)
