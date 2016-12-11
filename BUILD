@@ -154,19 +154,41 @@ cc_binary(
 cc_library(
     name = "storage",
     srcs = [
-
+        "storage/lru_storage.cc",
     ],
     hdrs= [
         "storage/simple_lru_cache.h",
+        "storage/lru_storage.h",
     ],
     copts = COPTS,
     linkopts = LINK_OPTS,
     deps = [":base",],
 )
 
+cc_test(
+    name = "storage_test",
+    srcs = [
+        "storage/lru_storage_test.cc",
+    ],
+    includes = ["./"],
+    copts = COPTS,
+    deps = [
+        ":storage",
+        "//external:gtest",
+    ],
+)
+
 cc_binary(
-    name = "simple_lru_cache",
+    name = "simple_lru_cache_app",
     srcs = ["storage/simple_lru_cache_main.cc"],
+    copts = COPTS,
+    linkopts = LINK_OPTS,
+    deps = [":storage",],
+)
+
+cc_binary(
+    name = "lru_storage_app",
+    srcs = ["storage/lru_storage_main.cc"],
     copts = COPTS,
     linkopts = LINK_OPTS,
     deps = [":storage",],
