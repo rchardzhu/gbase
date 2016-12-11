@@ -157,6 +157,7 @@ cc_library(
         "storage/lru_storage.cc",
         "storage/memory_storage.cc",
         "storage/tiny_storage.cc",
+        "storage/registry.cc",
     ],
     hdrs= [
         "storage/simple_lru_cache.h",
@@ -164,6 +165,7 @@ cc_library(
         "storage/storage_interface.h",
         "storage/memory_storage.h",
         "storage/tiny_storage.h",
+        "storage/registry.h",
     ],
     copts = COPTS,
     linkopts = LINK_OPTS,
@@ -176,6 +178,7 @@ cc_test(
         "storage/lru_storage_test.cc",
         "storage/memory_storage_test.cc",
         "storage/tiny_storage_test.cc",
+        "storage/registry_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
