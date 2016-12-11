@@ -53,6 +53,10 @@ const uint32 kFingerPrintSeed1 = 0x7a63;
   c -= a; c -= b; c ^= (b >> 15); \
 }
 
+uint32 Hash::MurMurlLikeHash(const char* data, size_t n, uint32_t seed) {
+  return MurMurlLikeHash(StringPiece(data, n), seed);
+}
+
 uint32 Hash::MurMurlLikeHash(StringPiece str, uint32_t seed) {
   // Similar to murmur hash
   const char* data = str.data();

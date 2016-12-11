@@ -86,6 +86,7 @@ cc_library(
         "base/serialized_string_array.h",
         "base/arena.h",
         "base/random.h",
+        "base/skiplist.h"
     ],
     includes = ["./"],
     copts = COPTS,
@@ -124,6 +125,7 @@ cc_test(
         "base/serialized_string_array_test.cc",
         "base/arena_test.cc",
         "base/random_test.cc",
+        "base/skiplist_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,

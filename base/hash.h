@@ -40,6 +40,7 @@ namespace gbase {
 class Hash {
  public:
   // Similar to murmur hash
+  static uint32 MurMurlLikeHash(const char* data, size_t n, uint32_t seed);
   static uint32 MurMurlLikeHash(StringPiece str, uint32_t seed);
 
   // Calculates 64-bit fingerprint.
