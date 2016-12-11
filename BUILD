@@ -18,7 +18,7 @@ COPTS = [
 LINK_OPTS = ["-lpthread"]
 
 cc_library(
-    name = "gbase",
+    name = "base",
     srcs = [
         "base/string_piece.cc",
         "base/mutex.cc",
@@ -93,7 +93,7 @@ cc_library(
 )
 
 cc_test(
-    name = "gbase_test",
+    name = "base_test",
     srcs = [
         "base/string_piece_test.cc",
         "base/clock_mock_test.cc",
@@ -130,9 +130,22 @@ cc_test(
     includes = ["./"],
     copts = COPTS,
     deps = [
-        ":gbase",
+        ":base",
         "//external:gtest",
     ],
+)
+
+cc_library(
+    name = "storage",
+    srcs = [
+
+    ],
+    hdrs= [
+        "storage/simple_lru_cache.h",
+    ],
+    copts = COPTS,
+    linkopts = LINK_OPTS,
+    deps = [":base",],
 )
 
 cc_binary(
@@ -140,7 +153,7 @@ cc_binary(
     srcs = ["base/stopwatch_main.cc"],
     copts = COPTS,
     linkopts = LINK_OPTS,
-    deps = [":gbase",],
+    deps = [":base",],
 )
 
 cc_binary(
@@ -148,5 +161,5 @@ cc_binary(
     srcs = ["base/cpu_stats_main.cc"],
     copts = COPTS,
     linkopts = LINK_OPTS,
-    deps = [":gbase",],
+    deps = [":base",],
 )
