@@ -61,7 +61,7 @@ string GenRandomString(int size) {
 }
 
 void RunTest(LRUStorage *storage, uint32 size) {
-  gbase::storage::LRUCache<string, uint32> cache(size);
+  gbase::storage::SimpleLRUCache<string, uint32> cache(size);
   std::set<string> used;
   std::vector<std::pair<string, uint32> > values;
   for (int i = 0; i < size * 2; ++i) {

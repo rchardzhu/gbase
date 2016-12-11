@@ -44,13 +44,13 @@ namespace storage {
 // such a entry is erased. Be careful to use for such classes.
 // TODO(yukawa): Make this class final once we stop supporting GCC 4.6.
 template<typename Key, typename Value>
-class LRUCache {
+class SimpleLRUCache {
  public:
   // Constructs a new LRUCache that can hold at most max_elements
-  explicit LRUCache(size_t max_elements);
+  explicit SimpleLRUCache(size_t max_elements);
 
   // Cleans up all allocated resources.
-  ~LRUCache();
+  ~SimpleLRUCache();
 
   // Every Element is either on the free list or the lru list.  The
   // free list is singly-linked and only uses the next pointer, while
@@ -156,12 +156,12 @@ class LRUCache {
   size_t next_block_size_;  // size of the next block to allocate
   size_t max_elements_;     // maximum elements to hold
 
-  DISALLOW_COPY_AND_ASSIGN(LRUCache);
+  DISALLOW_COPY_AND_ASSIGN(SimpleLRUCache);
 };
 
 
 template<typename Key, typename Value>
-void LRUCache<Key, Value>::AddBlock() {
+void SimpleLRUCache<Key, Value>::AddBlock() {
   const size_t max_blocks = sizeof(blocks_) / sizeof(blocks_[0]);
   if (block_count_ < max_blocks && block_capacity_ < max_elements_) {
     blocks_[block_count_] = new Element[next_block_size_];
@@ -189,15 +189,15 @@ void LRUCache<Key, Value>::AddBlock() {
 }
 
 template<typename Key, typename Value>
-void LRUCache<Key, Value>::PushFreeList(Element* element) {
+void SimpleLRUCache<Key, Value>::PushFreeList(Element* element) {
   element->prev = NULL;
   element->next = free_list_;
   free_list_ = element;
 }
 
 template<typename Key, typename Value>
-typename LRUCache<Key, Value>::Element*
-LRUCache<Key, Value>::PopFreeList() {
+typename SimpleLRUCache<Key, Value>::Element*
+SimpleLRUCache<Key, Value>::PopFreeList() {
   Element* r = free_list_;
   if (r != NULL) {
     CHECK(r->prev == NULL);
@@ -211,8 +211,8 @@ LRUCache<Key, Value>::PopFreeList() {
 }
 
 template<typename Key, typename Value>
-typename LRUCache<Key, Value>::Element*
-LRUCache<Key, Value>::NextFreeElement() {
+typename SimpleLRUCache<Key, Value>::Element*
+SimpleLRUCache<Key, Value>::NextFreeElement() {
   Element* r = PopFreeList();
   if (r == NULL) {
     AddBlock();
@@ -222,8 +222,8 @@ LRUCache<Key, Value>::NextFreeElement() {
 }
 
 template<typename Key, typename Value>
-typename LRUCache<Key, Value>::Element*
-LRUCache<Key, Value>::LookupInternal(const Key &key) const {
+typename SimpleLRUCache<Key, Value>::Element*
+SimpleLRUCache<Key, Value>::LookupInternal(const Key &key) const {
   typename Table::iterator iter = table_->find(key);
   if (iter != table_->end()) {
     return iter->second;
@@ -232,7 +232,7 @@ LRUCache<Key, Value>::LookupInternal(const Key &key) const {
 }
 
 template<typename Key, typename Value>
-void LRUCache<Key, Value>::RemoveFromLRU(Element* element) {
+void SimpleLRUCache<Key, Value>::RemoveFromLRU(Element* element) {
   if (lru_head_ == element) {
     lru_head_ = element->next;
   }
@@ -250,7 +250,7 @@ void LRUCache<Key, Value>::RemoveFromLRU(Element* element) {
 }
 
 template<typename Key, typename Value>
-void LRUCache<Key, Value>::PushLRUHead(Element* element) {
+void SimpleLRUCache<Key, Value>::PushLRUHead(Element* element) {
   if (lru_head_ == element) {
     // element is already at head, so do nothing.
     return;
@@ -267,7 +267,7 @@ void LRUCache<Key, Value>::PushLRUHead(Element* element) {
 }
 
 template<typename Key, typename Value>
-bool LRUCache<Key, Value>::Evict(Element* e) {
+bool SimpleLRUCache<Key, Value>::Evict(Element* e) {
   if (e != NULL) {
     int erased = table_->erase(e->key);
     CHECK_EQ(erased, 1);
@@ -279,7 +279,7 @@ bool LRUCache<Key, Value>::Evict(Element* e) {
 }
 
 template<typename Key, typename Value>
-LRUCache<Key, Value>::LRUCache(size_t max_elements)
+SimpleLRUCache<Key, Value>::SimpleLRUCache(size_t max_elements)
   : free_list_(NULL),
     lru_head_(NULL),
     lru_tail_(NULL),
@@ -306,7 +306,7 @@ LRUCache<Key, Value>::LRUCache(size_t max_elements)
 }
 
 template<typename Key, typename Value>
-LRUCache<Key, Value>::~LRUCache() {
+SimpleLRUCache<Key, Value>::~SimpleLRUCache() {
   // To free all the memory that I have allocated I need to delete table_ and
   // any used entries in blocks_.
   delete table_;
@@ -316,7 +316,7 @@ LRUCache<Key, Value>::~LRUCache() {
 }
 
 template<typename Key, typename Value>
-void LRUCache<Key, Value>::Insert(const Key& key,
+void SimpleLRUCache<Key, Value>::Insert(const Key& key,
                                   const Value& value) {
   Element *e = Insert(key);
   if (e != NULL) {
@@ -325,8 +325,8 @@ void LRUCache<Key, Value>::Insert(const Key& key,
 }
 
 template<typename Key, typename Value>
-typename LRUCache<Key, Value>::Element *
-LRUCache<Key, Value>::Insert(const Key& key) {
+typename SimpleLRUCache<Key, Value>::Element *
+SimpleLRUCache<Key, Value>::Insert(const Key& key) {
   bool erased = false;
   Element* e = LookupInternal(key);
   if (e != NULL) {
@@ -351,7 +351,7 @@ LRUCache<Key, Value>::Insert(const Key& key) {
 }
 
 template<typename Key, typename Value>
-Value* LRUCache<Key, Value>::MutableLookup(const Key& key) {
+Value* SimpleLRUCache<Key, Value>::MutableLookup(const Key& key) {
   Element* e = LookupInternal(key);
   if (e != NULL) {
     PushLRUHead(e);
@@ -361,12 +361,12 @@ Value* LRUCache<Key, Value>::MutableLookup(const Key& key) {
 }
 
 template<typename Key, typename Value>
-const Value* LRUCache<Key, Value>::Lookup(const Key& key) {
+const Value* SimpleLRUCache<Key, Value>::Lookup(const Key& key) {
   return MutableLookup(key);
 }
 
 template<typename Key, typename Value>
-Value* LRUCache<Key, Value>::MutableLookupWithoutInsert(const Key& key) const {
+Value* SimpleLRUCache<Key, Value>::MutableLookupWithoutInsert(const Key& key) const {
   Element *e = LookupInternal(key);
   if (e != NULL) {
     return &(e->value);
@@ -375,18 +375,18 @@ Value* LRUCache<Key, Value>::MutableLookupWithoutInsert(const Key& key) const {
 }
 
 template<typename Key, typename Value>
-const Value* LRUCache<Key, Value>::LookupWithoutInsert(const Key& key) const {
+const Value* SimpleLRUCache<Key, Value>::LookupWithoutInsert(const Key& key) const {
   return MutableLookupWithoutInsert(key);
 }
 
 template<typename Key, typename Value>
-bool LRUCache<Key, Value>::Erase(const Key& key) {
+bool SimpleLRUCache<Key, Value>::Erase(const Key& key) {
   Element* e = LookupInternal(key);
   return Evict(e);
 }
 
 template<typename Key, typename Value>
-void LRUCache<Key, Value>::Clear() {
+void SimpleLRUCache<Key, Value>::Clear() {
   table_->clear();
   Element* e = lru_head_;
   while (e != NULL) {
@@ -398,12 +398,12 @@ void LRUCache<Key, Value>::Clear() {
 }
 
 template<typename Key, typename Value>
-bool LRUCache<Key, Value>::HasKey(const Key& key) const {
+bool SimpleLRUCache<Key, Value>::HasKey(const Key& key) const {
   return (table_->find(key) != table_->end());
 }
 
 template<typename Key, typename Value>
-size_t LRUCache<Key, Value>::Size() const {
+size_t SimpleLRUCache<Key, Value>::Size() const {
   return table_->size();
 }
 
