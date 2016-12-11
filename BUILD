@@ -156,13 +156,14 @@ cc_library(
     srcs = [
         "storage/lru_storage.cc",
         "storage/memory_storage.cc",
+        "storage/tiny_storage.cc",
     ],
     hdrs= [
         "storage/simple_lru_cache.h",
         "storage/lru_storage.h",
         "storage/storage_interface.h",
         "storage/memory_storage.h",
-
+        "storage/tiny_storage.h",
     ],
     copts = COPTS,
     linkopts = LINK_OPTS,
@@ -174,6 +175,7 @@ cc_test(
     srcs = [
         "storage/lru_storage_test.cc",
         "storage/memory_storage_test.cc",
+        "storage/tiny_storage_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
