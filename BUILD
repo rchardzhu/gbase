@@ -5,6 +5,12 @@ package(default_visibility = ["//visibility:public"])
 licenses(["notice"])
 exports_files(["LICENSE"])
 
+load(
+    "//:build_config.bzl",
+    "tf_proto_library",
+    "tf_proto_library_cc",
+)
+
 COPTS = [
     "-DOS_LINUX",
     "-DHAVE_PTHREAD",
@@ -16,6 +22,15 @@ COPTS = [
 ]
 
 LINK_OPTS = ["-lpthread"]
+
+tf_proto_library(
+    name = "gbase_protos",
+    srcs = [
+        "base/error_codes.proto",
+    ],
+    cc_api_version = 2,
+    visibility = ["//visibility:public"],
+)
 
 cc_library(
     name = "base",
@@ -90,6 +105,9 @@ cc_library(
     ],
     includes = ["./"],
     copts = COPTS,
+    deps = [
+        ":gbase_protos_cc",
+    ],
 )
 
 cc_test(
