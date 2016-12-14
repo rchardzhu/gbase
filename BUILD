@@ -6,7 +6,7 @@ licenses(["notice"])
 exports_files(["LICENSE"])
 
 load(
-    "//:build_config.bzl",
+    "//gbase:build_config.bzl",
     "tf_proto_library",
     "tf_proto_library_cc",
 )
