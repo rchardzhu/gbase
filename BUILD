@@ -146,6 +146,7 @@ cc_test(
         "base/arena_test.cc",
         "base/random_test.cc",
         "base/skiplist_test.cc",
+        "base/status_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
