@@ -14,29 +14,13 @@ limitations under the License.
 ==============================================================================*/
 
 #include "base/status.h"
+#include "base/errors.h"
+
 #include "gtest/gtest.h"
 
 namespace gbase {
 
-namespace errors {
-
-::gbase::Status InvalidArgument(StringPiece error_msg) {                              \
-  return ::gbase::Status(::gbase::error::INVALID_ARGUMENT, error_msg);
-}
-
-::gbase::Status Internal(StringPiece error_msg) {                              \
-  return ::gbase::Status(::gbase::error::INTERNAL, error_msg);
-}
-
-}  // namespace errors
-
 namespace {
-
-#define TF_EXPECT_OK(statement) \
-  EXPECT_EQ(::gbase::Status::OK(), (statement))
-#define TF_ASSERT_OK(statement) \
-  ASSERT_EQ(::gbase::Status::OK(), (statement))
-
 
 TEST(Status, OK) {
   EXPECT_EQ(Status::OK().code(), error::OK);
@@ -47,6 +31,12 @@ TEST(Status, OK) {
   Status s;
   EXPECT_TRUE(s.ok());
 }
+
+// TODO
+// TEST(DeathStatus, CheckOK) {
+//   Status status(errors::InvalidArgument("Invalid"));
+//   ASSERT_DEATH(TF_CHECK_OK(status), "Invalid");
+// }
 
 TEST(Status, Set) {
   Status status;

@@ -104,6 +104,7 @@ cc_library(
         "base/random.h",
         "base/skiplist.h",
         "base/status.h",
+        "base/errors.h",
     ],
     includes = ["./"],
     copts = COPTS,
