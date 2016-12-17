@@ -249,6 +249,7 @@ cc_test(
     name = "encoding_test",
     srcs = [
         "encoding/crc32c_test.cc",
+        "encoding/base64_test.cc",
     ],
     includes = ["./"],
     copts = COPTS,
