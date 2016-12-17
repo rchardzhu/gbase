@@ -105,6 +105,7 @@ cc_library(
         "base/skiplist.h",
         "base/status.h",
         "base/errors.h",
+        "base/macros.h",
     ],
     includes = ["./"],
     copts = COPTS,
@@ -233,9 +234,11 @@ cc_library(
     name = "encoding",
     srcs = [
         "encoding/crc32c.cc",
+        "encoding/base64.cc",
     ],
     hdrs= [
         "encoding/crc32c.h",
+        "encoding/base64.h",
     ],
     copts = COPTS,
     linkopts = LINK_OPTS,

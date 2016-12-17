@@ -17,7 +17,7 @@ limitations under the License.
 #define GBASE_BASE_ERRORS_H_
 
 #include "base/status.h"
-#include "base/util.h"
+#include "base/macros.h"
 
 namespace gbase {
 
