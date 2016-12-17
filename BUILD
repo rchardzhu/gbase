@@ -63,6 +63,7 @@ cc_library(
         "base/serialized_string_array.cc",
         "base/arena.cc",
         "base/random.cc",
+        "base/status.cc",
     ],
     hdrs = [
         "base/atomic_pointer.h",
@@ -101,7 +102,8 @@ cc_library(
         "base/serialized_string_array.h",
         "base/arena.h",
         "base/random.h",
-        "base/skiplist.h"
+        "base/skiplist.h",
+        "base/status.h",
     ],
     includes = ["./"],
     copts = COPTS,
